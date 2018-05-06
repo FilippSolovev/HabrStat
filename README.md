@@ -42,6 +42,7 @@ For additional information about 'pymorphy2' see official documentation (in Russ
 * [pymorphy2](https://pymorphy2.readthedocs.io "pymorphy2")
 * [pandas](https://pandas.pydata.org "pandas")
 * [beautiful soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/ "bs4")
+* [requests](http://docs.python-requests.org/en/master/ "requests")
 
 # Authors
 * [Filipp Solovev](https://github.com/FilippSolovev "FilippSolovev")
