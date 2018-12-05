@@ -3,6 +3,7 @@ import sys
 import pandas as pd
 from bs4 import BeautifulSoup
 import dateparser
+from tqdm import tqdm, trange
 
 
 def _fetch_habr_feed_page(page_num):
@@ -24,7 +25,9 @@ def _fetch_habr_feed_page(page_num):
 
 def fetch_raw_habr_feed(pages=10):
     raw_pages = []
-    for page_num in range(pages):
+    pbar = trange(pages)
+    for page_num in pbar:
+        pbar.set_description(f"Getting {page_num + 1} habr page")
         raw_pages.append(_fetch_habr_feed_page(page_num=page_num))
     return raw_pages
 
@@ -50,8 +53,12 @@ def parse_habr_page(raw_page):
 def get_data(pages=10):
     raw_pages = fetch_raw_habr_feed(pages)
     list_of_dataframes = []
-    for raw_page in raw_pages:
+    pbar = tqdm(raw_pages)
+    page_num = 1
+    for raw_page in pbar:
+        pbar.set_description(f"Processing text from page {page_num}")
         list_of_dataframes.append(parse_habr_page(raw_page))
+        page_num += 1
     # Merging dataframes into one and resetting an index
     data = pd.concat(list_of_dataframes, ignore_index=True)
     # Setting date as index
